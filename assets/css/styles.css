@@ -13,6 +13,26 @@ body {
     align-items: center;
 }
 
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: rgba(227, 242, 253, 1);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgb(76, 167, 219);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(2, 119, 189, 1);
+    cursor: pointer;
+}
+
 .container {
     flex: 1 1 100%;
     padding: 10px;
@@ -239,11 +259,5 @@ p {
     100% {
         transform: translateY(0);
         opacity: 0.3;
-    }
-}
-
-@media screen and (max-width: 700px) {
-    body {
-        display: block;
     }
 }

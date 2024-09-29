@@ -45,7 +45,6 @@ class AkinatorGame {
 
         this.hideAll();
         this.startButtons.classList.remove('hidden');
-        this.hideLoading();
     }
 
     showGuessScreen(name, description, imageUrl) {
@@ -184,6 +183,7 @@ class AkinatorGame {
             const data = await this.apiRequest('start');
             this.showQuestionScreen(data.question, data.answers, data.progress);
         } catch (error) {
+            this.showMainScreen();
             console.error('Ошибка при старте игры:', error);
         }
     }
