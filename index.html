@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игра с Акинатором</title>
+    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/styles.css?v1.0.6">
+</head>
+<body>
+    <div class="container">
+        <div class="question-container">
+            <div class="question-box">
+                <img src="assets/logos/1.png" alt="Логотип">
+
+                <div id="question-text" class="question">
+                    Здравствуй, дорогой мой гость!<br>
+                    Не хочешь сыграть со мной в игру?<br>
+                    Загадай любого реального или вымышленного персонажа из игры, фильма, мультика, телепередачи, из чего угодно, а я постараюсь его угадать!
+                </div>
+
+                <div id="start-buttons" class="start-buttons">
+                    <button id="start-button" class="btn">Я загадал</button>
+                </div>
+
+                <div id="guess-info" class="guess-info hidden">
+                    <img id="guess-image" src="#" alt="Персонаж">
+                    <h3 id="guess-name"></h3>
+                    <p id="guess-description"></p>
+                    
+                    <div class="guess-buttons">
+                        <button id="yes-button" class="btn">Да</button>
+                        <button id="no-button" class="btn">Нет</button>
+                    </div>
+                </div>
+
+                <div id="end-buttons" class="end-buttons hidden"></div>
+            </div>
+        </div>
+
+        <div id="question-screen" class="hidden">
+            <div class="progress">
+                <div id="progress-line" class="progress_bar"></div>
+            </div>
+
+            <div class="answers-section" id="answers-container"></div>
+
+            <div class="navigation-buttons">
+                <button id="back-button" class="btn secondary">Исправить</button>
+                <button id="newgame-button" class="btn secondary">Сначала</button> 
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/script.js?v1.0.6"></script>
+</body>
+</html>

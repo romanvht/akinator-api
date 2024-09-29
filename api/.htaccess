@@ -1,0 +1,7 @@
+php_flag display_errors Off
+php_flag log_errors On
+php_value error_log php_errors.log
+
+<Files "php_errors.log">
+    Require all denied
+</Files>
