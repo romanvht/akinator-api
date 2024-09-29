@@ -1,5 +1,7 @@
 class AkinatorGame {
     constructor() {
+        this.sessionId = null;
+        
         this.initElements();
         this.initHandlers();
     }
@@ -145,15 +147,17 @@ class AkinatorGame {
         this.showLoading();
         
         const url = new URL('api/api.php', window.location);
-        
         const body = new URLSearchParams();
+
         body.append('action', action);
+        body.append('session_id', this.sessionId);
+
         for (const key in params) {
             if (params.hasOwnProperty(key)) {
                 body.append(key, params[key]);
             }
         }
-    
+
         try {
             const response = await fetch(url, {
                 method: 'POST',
@@ -167,6 +171,10 @@ class AkinatorGame {
     
             if (data.error) {
                 throw new Error(data.error);
+            }
+
+            if (data.session_id) {
+                this.sessionId = data.session_id;
             }
             
             return data;

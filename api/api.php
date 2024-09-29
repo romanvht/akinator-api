@@ -9,15 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 require_once 'AkinatorAPI.php';
 
-session_start();
+$action = $_POST['action'] ?? '';
+$session_id = $_POST['session_id'] ?? null;
 
-function sendResponse(array $data, int $status_code = 200) {
-    http_response_code($status_code);
-    echo json_encode($data);
-    exit;
+if ($session_id) {
+    session_id($session_id);
 }
 
-$action = $_POST['action'] ?? '';
+session_start();
 
 try {
     switch ($action) {
@@ -34,7 +33,8 @@ try {
             sendResponse([
                 'question' => $akinator->getQuestion(),
                 'answers' => $akinator->getAnswers(),
-                'progress' => $akinator->getProgress()
+                'progress' => $akinator->getProgress(),
+                'session_id' => session_id()
             ]);
             break;
 
@@ -60,13 +60,15 @@ try {
                 sendResponse([
                     'guess' => $result['name_proposition'],
                     'description' => $result['description_proposition'],
-                    'image_url' => $result['photo']
+                    'image_url' => $result['photo'],
+                    'session_id' => session_id()
                 ]);
             } else {
                 sendResponse([
                     'question' => $akinator->getQuestion(),
                     'answers' => $akinator->getAnswers(),
-                    'progress' => $akinator->getProgress()
+                    'progress' => $akinator->getProgress(),
+                    'session_id' => session_id()
                 ]);
             }
             break;
@@ -82,7 +84,8 @@ try {
             sendResponse([
                 'question' => $akinator->getQuestion(),
                 'answers' => $akinator->getAnswers(),
-                'progress' => $akinator->getProgress()
+                'progress' => $akinator->getProgress(),
+                'session_id' => session_id()
             ]);
             break;
 
@@ -97,7 +100,8 @@ try {
             sendResponse([
                 'question' => $akinator->getQuestion(),
                 'answers' => $akinator->getAnswers(),
-                'progress' => $akinator->getProgress()
+                'progress' => $akinator->getProgress(),
+                'session_id' => session_id()
             ]);
             break;
 
@@ -117,4 +121,10 @@ try {
     }
 
     sendResponse(['error' => $error_message], $status_code);
+}
+
+function sendResponse(array $data, int $status_code = 200) {
+    http_response_code($status_code);
+    echo json_encode($data);
+    exit;
 }
