@@ -46,6 +46,7 @@ class AkinatorGame {
         `;
 
         this.hideAll();
+        this.showLogos(1);
         this.startButtons.classList.remove('hidden');
     }
 
@@ -57,6 +58,7 @@ class AkinatorGame {
         this.questionText.innerHTML = 'Я думаю это';
 
         this.hideAll();
+        this.showLogos(6);
         this.guessInfo.classList.remove('hidden');
     }
 
@@ -74,13 +76,20 @@ class AkinatorGame {
         });
 
         this.hideAll();
+        this.showLogos();
         this.showProgress(progress);
         this.questionScreen.classList.remove('hidden');
     }
 
     showEndScreen() {
         this.hideAll();
+        this.showLogos(7);
         this.endButtons.classList.remove('hidden');
+    }
+
+    showLogos(logo) {
+        logo = !logo ? Math.floor(Math.random() * 7) + 1 : logo;
+        this.logos.src = `assets/logos/${logo}.png`;
     }
 
     showProgress(progress) {
