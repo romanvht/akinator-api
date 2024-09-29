@@ -146,6 +146,10 @@ p {
     text-align: center;
 }
 
+.question-container img{
+    max-height: 220px;
+}
+
 .question-box {
     background: rgba(187, 222, 251, 1);
     padding: 14px;
