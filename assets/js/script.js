@@ -7,6 +7,7 @@ class AkinatorGame {
     }
 
     initElements() {
+        this.logos = document.getElementById('logos');
         this.questionText = document.getElementById('question-text');
         this.questionScreen = document.getElementById('question-screen');
         this.answersContainer = document.getElementById('answers-container');
