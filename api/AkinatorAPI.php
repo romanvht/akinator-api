@@ -7,9 +7,7 @@ class Akinator {
     private $session;
     private $progress;
     private $childMode;
-    private $stepLastProposition;
     private $answers;
-    private $guessCount;
     private $question;
     private $signature;
     private $guess;
@@ -26,8 +24,6 @@ class Akinator {
         $this->uri = "https://{$this->region}.akinator.com";
         $this->guess = null;
         $this->progress = 0.00;
-        $this->stepLastProposition = '';
-        $this->guessCount = 0;
         $this->childMode = $childMode;
         $this->question = '';
         $this->answers = [];
