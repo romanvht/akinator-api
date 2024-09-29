@@ -1,2 +1,0 @@
-[29-Sep-2024 07:44:18 Etc/GMT-4] PHP Deprecated:  Creation of dynamic property Akinator::$stepLastProposition is deprecated in C:\OSPanel\home\game.test\api\api.php on line 12
-[29-Sep-2024 07:44:18 Etc/GMT-4] PHP Deprecated:  Creation of dynamic property Akinator::$guessCount is deprecated in C:\OSPanel\home\game.test\api\api.php on line 12
