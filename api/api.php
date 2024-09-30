@@ -9,8 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 require_once 'AkinatorAPI.php';
 
-$action = empty($_POST['action']) ? null : $_POST['action'];
-$session_id = empty($_POST['session_id']) ? null : $_POST['session_id'];
+$action = empty($_POST['action']) ? null : htmlspecialchars($_POST['action']);
+$session_id = empty($_POST['session_id']) ? null : htmlspecialchars($_POST['session_id']);
 
 if ($session_id) {
     session_id($session_id);
