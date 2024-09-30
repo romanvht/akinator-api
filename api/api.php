@@ -21,25 +21,25 @@ session_start();
 try {
     switch ($action) {
         case 'reset':
-            unset($_SESSION['akinator']);
+            unset($_SESSION['state']);
             sendResponse(['status' => 'Game reset']);
             break;
 
         case 'start':
-            $_SESSION['akinator'] = new Akinator('ru', false);
-            $akinator = $_SESSION['akinator'];
+            $akinator = new Akinator('ru', false);
             $akinator->start();
+            
+            $_SESSION['state'] = $akinator->getState();
 
             sendResponse([
                 'question' => $akinator->getQuestion(),
                 'answers' => $akinator->getAnswers(),
-                'progress' => $akinator->getProgress(),
-                'session_id' => session_id()
+                'progress' => $akinator->getProgress()
             ]);
             break;
 
         case 'step':
-            if (!isset($_SESSION['akinator'])) {
+            if (!isset($_SESSION['state'])) {
                 throw new Exception('Game not started');
             }
 
@@ -47,56 +47,62 @@ try {
                 throw new Exception('Answer is required');
             }
 
+            $akinator = new Akinator('ru', false);
+            $akinator->setState($_SESSION['state']);
+
             $answer = (int) $_POST['answer'];
-            $akinator = $_SESSION['akinator'];
             $result = $akinator->step($answer);
+
+            $_SESSION['state'] = $akinator->getState();
 
             if (isset($result['id_base_proposition'])) {
                 sendResponse([
                     'guess' => $result['name_proposition'],
                     'description' => $result['description_proposition'],
-                    'image_url' => $result['photo'],
-                    'session_id' => session_id()
+                    'image_url' => $result['photo']
                 ]);
             } else {
                 sendResponse([
                     'question' => $akinator->getQuestion(),
                     'answers' => $akinator->getAnswers(),
-                    'progress' => $akinator->getProgress(),
-                    'session_id' => session_id()
+                    'progress' => $akinator->getProgress()
                 ]);
             }
             break;
 
         case 'back':
-            if (!isset($_SESSION['akinator'])) {
+            if (!isset($_SESSION['state'])) {
                 throw new Exception('Game not started');
             }
 
-            $akinator = $_SESSION['akinator'];
+            $akinator = new Akinator('ru', false);
+            $akinator->setState($_SESSION['state']);
             $akinator->back();
+
+            $_SESSION['state'] = $akinator->getState();
 
             sendResponse([
                 'question' => $akinator->getQuestion(),
                 'answers' => $akinator->getAnswers(),
-                'progress' => $akinator->getProgress(),
-                'session_id' => session_id()
+                'progress' => $akinator->getProgress()
             ]);
             break;
 
         case 'continue':
-            if (!isset($_SESSION['akinator'])) {
+            if (!isset($_SESSION['state'])) {
                 throw new Exception('Game not started');
             }
 
-            $akinator = $_SESSION['akinator'];
+            $akinator = new Akinator('ru', false);
+            $akinator->setState($_SESSION['state']);
             $akinator->continue();
+
+            $_SESSION['state'] = $akinator->getState();
 
             sendResponse([
                 'question' => $akinator->getQuestion(),
                 'answers' => $akinator->getAnswers(),
-                'progress' => $akinator->getProgress(),
-                'session_id' => session_id()
+                'progress' => $akinator->getProgress()
             ]);
             break;
 
@@ -119,6 +125,7 @@ try {
 }
 
 function sendResponse(array $data, int $status_code = 200) {
+    $data['session_id'] = session_id();
     http_response_code($status_code);
     echo json_encode($data);
     exit;

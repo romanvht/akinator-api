@@ -189,6 +189,32 @@ class Akinator {
         return $result;
     }
 
+    public function getState() {
+        return [
+            'currentStep' => $this->currentStep,
+            'region' => $this->region,
+            'session' => $this->session,
+            'progress' => $this->progress,
+            'childMode' => $this->childMode,
+            'question' => $this->question,
+            'answers' => $this->answers,
+            'signature' => $this->signature,
+            'guess' => $this->guess
+        ];
+    }
+    
+    public function setState($state) {
+        $this->currentStep = $state['currentStep'];
+        $this->region = $state['region'];
+        $this->session = $state['session'];
+        $this->progress = $state['progress'];
+        $this->childMode = $state['childMode'];
+        $this->question = $state['question'];
+        $this->answers = $state['answers'];
+        $this->signature = $state['signature'];
+        $this->guess = $state['guess'];
+    }
+
     public function getQuestion() {
         return $this->question;
     }
