@@ -1,6 +1,6 @@
 class AkinatorGame {
     constructor() {
-        this.sessionId = null;
+        this.sessionId = 0;
         
         this.initElements();
         this.initHandlers();
