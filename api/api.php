@@ -43,17 +43,12 @@ try {
                 throw new Exception('Game not started');
             }
 
-            $akinator = $_SESSION['akinator'];
-
             if (!isset($_POST['answer'])) {
                 throw new Exception('Answer is required');
             }
 
-            $answer = filter_var($_POST['answer'], FILTER_VALIDATE_INT);
-            if ($answer === false) {
-                throw new Exception('Invalid answer format');
-            }
-
+            $answer = (int) $_POST['answer'];
+            $akinator = $_SESSION['akinator'];
             $result = $akinator->step($answer);
 
             if (isset($result['id_base_proposition'])) {
