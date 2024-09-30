@@ -19,14 +19,14 @@ class Akinator {
             throw new Exception('Please specify a correct region.');
         }
 
-        $this->currentStep = 0;
         $this->region = $region;
         $this->uri = "https://{$this->region}.akinator.com";
-        $this->guess = null;
+        $this->currentStep = 0;
+        $this->answers = [];
         $this->progress = 0.00;
         $this->childMode = $childMode;
         $this->question = '';
-        $this->answers = [];
+        $this->guess = [];
     }
 
     private function sendRequest($url, $formData) {
@@ -204,16 +204,16 @@ class Akinator {
     }
     
     public function setState($state) {
-        $this->currentStep = $state['currentStep'];
-        $this->region = $state['region'];
-        $this->session = $state['session'];
-        $this->progress = $state['progress'];
-        $this->childMode = $state['childMode'];
-        $this->question = $state['question'];
-        $this->answers = $state['answers'];
-        $this->signature = $state['signature'];
-        $this->guess = $state['guess'];
-    }
+        $this->answers = is_array($state['answers'] ?? null) ? $state['answers'] : [];
+        $this->guess = is_array($state['guess'] ?? null) ? $state['guess'] : [];
+        $this->region = (string) $state['region'] ?? 'ru';
+        $this->session = (string) $state['session'] ?? '';
+        $this->signature = (string) $state['signature'] ?? '';
+        $this->question = (string) $state['question'] ?? '';
+        $this->currentStep = (int) $state['currentStep'] ?? 0;
+        $this->progress = (float) $state['progress'] ?? 0.00;
+        $this->childMode = (bool) $state['childMode'] ?? false;
+    }    
 
     public function getQuestion() {
         return $this->question;
